@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  </script>
+  <title>Happy Birthday Janvii! 🌸 — A Blooming Celebration</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Canvas Confetti Library CDN with local fallback -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-blossom text-[#331538] antialiased selection:bg-pink-500 selection:text-white">
+
+  <!-- ========================================== -->
+  <!-- 1. SAKURA BLOSSOMS & PARTICLES CANVAS -->
+  <!-- ========================================== -->
+  <canvas id="sakura-canvas"></canvas>
+  <canvas id="fireworks-canvas"></canvas>
+
+  <!-- ========================================== -->
+  <!-- 2. WELCOME GATEWAY OVERLAY (Tap to Bloom) -->
+  <!-- ========================================== -->
+  <div id="welcome-overlay">
+    <!-- Floating pink bubbles for dreamy first page ambiance -->
+    <div class="pink-bubble w-20 h-20 left-[8%]" style="animation-duration: 9s; animation-delay: 0s;"></div>
+    <div class="pink-bubble w-14 h-14 left-[24%]" style="animation-duration: 12s; animation-delay: 2s;"></div>
+    <div class="pink-bubble w-24 h-24 left-[76%]" style="animation-duration: 11s; animation-delay: 1s;"></div>
+    <div class="pink-bubble w-16 h-16 left-[88%]" style="animation-duration: 14s; animation-delay: 3s;"></div>
+    <div class="pink-bubble w-12 h-12 left-[48%]" style="animation-duration: 10s; animation-delay: 4.5s;"></div>
+
+    <div class="welcome-card-pink glass-card max-w-lg w-full text-center p-8 md:p-12 rounded-3xl relative overflow-hidden">
+      <!-- Glow blobs inside the card -->
+      <div class="absolute -top-16 -left-16 w-44 h-44 bg-pink-400/35 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -right-16 w-44 h-44 bg-rose-400/35 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="welcome-badge-pink inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs md:text-sm font-bold mb-6">
+        <span>✨</span> A Heartfelt Surprise Awaits <span>✨</span>
+      </div>
+
+      <h1 class="font-dancing text-5xl md:text-6xl mb-4 font-bold">
+        <span class="welcome-title-pink">Happy Birthday, Janvii!</span> <span class="inline-block text-4xl md:text-5xl animate-bounce">🌸</span>
+      </h1>
+
+      <p class="welcome-desc-pink text-base md:text-lg mb-8 leading-relaxed">
+        A special day for someone genuinely extraordinary. This year, we’re doing things a little differently — crafted just for you to bring a bright blossom to your day.
+      </p>
+
+      <button id="enter-surprise-btn" class="welcome-btn-pink btn-blossom text-lg md:text-xl py-3.5 px-8 inline-flex items-center gap-3">
+        <span>🌸 Step Into The Bloom 🌸</span>
+      </button>
+
+      <p class="text-xs font-semibold mt-6 tracking-wide text-pink-800">
+        🎧 Music begins when you step into the celebration
+      </p>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 3. MAIN CELEBRATION APP -->
+  <!-- ========================================== -->
+  <div id="main-content" class="relative z-10 max-w-6xl mx-auto px-4 py-8 md:py-14">
+
+    <!-- HERO HEADER -->
+    <header class="text-center mb-14 md:mb-20">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-pink-300 text-pink-700 text-xs md:text-sm font-semibold mb-4 animate-float shadow-sm">
+        <span>✨</span> Celebrating You on Your Special Day <span>✨</span>
+      </div>
+
+      <h1 class="font-dancing text-6xl md:text-8xl lg:text-9xl heading-gradient font-bold mb-4 text-glow">
+        Happy Birthday, Janvii! 🌸
+      </h1>
+
+      <p class="text-[#5a3058] text-lg md:text-2xl max-w-2xl mx-auto font-normal leading-relaxed mb-8">
+        Wishing you a year filled with peaceful mornings, loud laughter, thriving dreams, and moments that make your heart smile.
+      </p>
+
+      <!-- NAVIGATION PILLS -->
+      <div class="flex flex-wrap justify-center gap-2.5 md:gap-4 max-w-xl mx-auto text-sm">
+        <a href="#cake-section" class="px-4 py-2 rounded-full glass-card hover:border-pink-500 text-pink-800 font-semibold transition-all flex items-center gap-1.5 shadow-sm">
+          <span>🎂</span> Cake & Wish
+        </a>
+        <a href="#gallery-section" class="px-4 py-2 rounded-full glass-card hover:border-pink-500 text-pink-800 font-semibold transition-all flex items-center gap-1.5 shadow-sm">
+          <span>📸</span> Memory Lane
+        </a>
+        <a href="#letter-section" class="px-4 py-2 rounded-full glass-card hover:border-pink-500 text-pink-800 font-semibold transition-all flex items-center gap-1.5 shadow-sm">
+          <span>💌</span> Friendship Note
+        </a>
+        <a href="#smiles-section" class="px-4 py-2 rounded-full glass-card hover:border-pink-500 text-pink-800 font-semibold transition-all flex items-center gap-1.5 shadow-sm">
+          <span>⭐</span> Jar of Smiles
+        </a>
+        <button id="manual-confetti-btn" class="px-4 py-2 rounded-full btn-blossom text-white font-semibold transition-all flex items-center gap-1.5 shadow-md">
+          <span>🎉</span> Pop Confetti!
+        </button>
+      </div>
+    </header>
+
+    <!-- SECTION 1: INTERACTIVE 3D CAKE & CANDLE BLOW -->
+    <section id="cake-section" class="mb-20 md:mb-28 text-center scroll-mt-20">
+      <div class="glass-card max-w-2xl mx-auto p-6 md:p-10 rounded-3xl relative overflow-hidden shadow-lg border border-pink-300/80">
+        <div class="mb-6">
+          <span class="text-xs uppercase tracking-widest text-pink-600 font-bold">The Ceremony</span>
+          <h2 class="font-dancing text-4xl md:text-5xl text-pink-800 font-bold mt-1">Make a Birthday Wish 🎂</h2>
+          <p class="text-sm text-[#6e4b73] mt-2 font-medium">Close your eyes, make a silent wish, and blow out the candles!</p>
+        </div>
+
+        <!-- 3D Interactive Cake -->
+        <div class="cake-stage mb-8">
+          <div class="cake-plate"></div>
+
+          <!-- Bottom Tier -->
+          <div class="cake-tier tier-bottom">
+            <div class="frosting-drip"></div>
+          </div>
+
+          <!-- Top Tier -->
+          <div class="cake-tier tier-top">
+            <div class="frosting-drip"></div>
+          </div>
+
+          <!-- Personalized Cake Topper -->
+          <div class="cake-topper">Janvii ✨</div>
+
+          <!-- Candles with interactive flame & smoke -->
+          <div class="candle-cluster">
+            <div class="candle">
+              <div class="wick"></div>
+              <div class="flame"></div>
+              <div class="smoke"></div>
+            </div>
+            <div class="candle">
+              <div class="wick"></div>
+              <div class="flame"></div>
+              <div class="smoke"></div>
+            </div>
+            <div class="candle">
+              <div class="wick"></div>
+              <div class="flame"></div>
+              <div class="smoke"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wish Message Banner (shown upon blowing candles) -->
+        <div id="wish-message-banner" class="hidden mb-6 p-4 rounded-2xl bg-gradient-to-r from-pink-100 via-rose-100 to-pink-100 border border-pink-300 shadow-md">
+          <p class="font-dancing text-2xl md:text-3xl text-pink-800 font-bold">
+            🎉 Wish Made! May every dream in your heart bloom into reality, Janvii! 🌸
+          </p>
+        </div>
+
+        <!-- Action Button -->
+        <div class="flex justify-center gap-4">
+          <button id="blow-candles-btn" class="btn-blossom text-base md:text-lg">
+            🎂 Make a Wish & Blow the Candles ✨
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: POLAROID MEMORY GARDEN -->
+    <section id="gallery-section" class="mb-20 md:mb-28 scroll-mt-20">
+      <div class="text-center mb-10">
+        <span class="text-xs uppercase tracking-widest text-pink-600 font-bold">Cherished Moments</span>
+        <h2 class="font-dancing text-4xl md:text-6xl text-pink-800 font-bold mt-1">A Walk Down Memory Lane 📸</h2>
+        <p class="text-sm md:text-base text-[#6e4b73] mt-2 max-w-lg mx-auto font-medium">
+          Snapshots of grace, smiles, and the vibrant spirit that makes you uniquely you.
+        </p>
+
+        <!-- Video Reel Buttons -->
+        <div class="flex flex-wrap justify-center gap-3 mt-4">
+          <button id="open-video-btn-1" class="px-4 py-2 rounded-full glass-card hover:border-pink-500 text-sm font-semibold flex items-center gap-2 text-pink-800 shadow-sm">
+            <span>📽️</span> Play Memory Reel
+          </button>
+          <button id="open-video-btn-2" class="px-4 py-2 rounded-full glass-card hover:border-pink-500 text-sm font-semibold flex items-center gap-2 text-pink-800 shadow-sm">
+            <span>🧸</span> Teddy Bear Wishes
+          </button>
+        </div>
+      </div>
+
+      <!-- Polaroid Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+
+        <!-- Polaroid 1 -->
+        <div class="polaroid-card" data-index="0" style="transform: rotate(-2deg);">
+          <img src="./assets/images/photo_1.jpg" alt="Janvi" class="polaroid-img" loading="lazy">
+          <p class="polaroid-caption">That radiant smile ✨</p>
+        </div>
+
+        <!-- Polaroid 2 -->
+        <div class="polaroid-card" data-index="1" style="transform: rotate(3deg);">
+          <img src="./assets/images/photo_2.png" alt="Janvii" class="polaroid-img" loading="lazy">
+          <p class="polaroid-caption">Grace & warmth 🌸</p>
+        </div>
+
+        <!-- Polaroid 3 -->
+        <div class="polaroid-card" data-index="2" style="transform: rotate(-1.5deg);">
+          <img src="./assets/images/photo_3.jpg" alt="Janvi" class="polaroid-img" loading="lazy">
+          <p class="polaroid-caption">Unforgettable moments 💫</p>
+        </div>
+
+        <!-- Polaroid 4 -->
+        <div class="polaroid-card" data-index="3" style="transform: rotate(2.5deg);">
+          <img src="./assets/images/photo_4.jpg" alt="Janvi" class="polaroid-img" loading="lazy">
+          <p class="polaroid-caption">Quiet strength 🌿</p>
+        </div>
+
+        <!-- Polaroid 5 -->
+        <div class="polaroid-card" data-index="4" style="transform: rotate(-2.5deg);">
+          <img src="./assets/images/photo_5.jpg" alt="Janvi" class="polaroid-img" loading="lazy">
+          <p class="polaroid-caption">Pure joy & laughter ☀️</p>
+        </div>
+
+        <!-- Polaroid 6: Collage -->
+        <div class="polaroid-card" data-index="5" style="transform: rotate(1.5deg);">
+          <img src="./assets/images/birthday_collage.png" alt="Janvi Collage" class="polaroid-img" loading="lazy">
+          <p class="polaroid-caption">Memory Mosaic 💖</p>
+        </div>
+
+        <!-- Polaroid 7 -->
+        <div class="polaroid-card" data-index="6" style="transform: rotate(-3deg);">
+          <img src="./assets/images/janvii1.jpeg" alt="Janvi Childhood / Classic" class="polaroid-img" loading="lazy">
+          <p class="polaroid-caption">Cherished classic 📸</p>
+        </div>
+
+        <!-- Polaroid 8 -->
+        <div class="polaroid-card" data-index="7" style="transform: rotate(2deg);">
+          <img src="./assets/images/67.jpg" alt="Janvi Moments" class="polaroid-img" loading="lazy">
+          <p class="polaroid-caption">Celebration mode ⭐</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: VINTAGE WAX-SEALED FRIENDSHIP LETTER -->
+    <section id="letter-section" class="mb-20 md:mb-28 scroll-mt-20 text-center">
+      <div class="glass-card max-w-xl mx-auto p-8 md:p-12 rounded-3xl relative shadow-lg border border-pink-300/80">
+        <h2 class="font-dancing text-4xl md:text-5xl text-pink-800 font-bold mb-2">A Letter For You</h2>
+        <p class="text-sm text-[#6e4b73] mb-8 font-medium">Tap the wax seal to break the envelope and read your note.</p>
+
+        <!-- Interactive Envelope -->
+        <div class="envelope-wrapper" id="interactive-envelope">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-pocket"></div>
+            <div class="wax-seal">🌸</div>
+          </div>
+        </div>
+
+        <p class="text-xs text-pink-700/80 mt-6 italic font-medium">Click the envelope to open</p>
+      </div>
+    </section>
+
+    <!-- SECTION 4: JAR OF 365 SMILES -->
+    <section id="smiles-section" class="mb-20 md:mb-28 scroll-mt-20 text-center">
+      <div class="glass-card max-w-xl mx-auto p-8 md:p-12 rounded-3xl relative shadow-lg border border-pink-300/80">
+        <span class="text-xs uppercase tracking-widest text-pink-600 font-bold">Daily Affirmations</span>
+        <h2 class="font-dancing text-4xl md:text-5xl text-pink-800 font-bold mt-1 mb-2">The Jar of Smiles ⭐</h2>
+        <p class="text-sm text-[#6e4b73] mb-6 font-medium">
+          Filled with little reasons why your presence matters. Tap the jar whenever you need a smile!
+        </p>
+
+        <!-- Interactive Glass Jar -->
+        <div class="jar-container" id="smile-jar">
+          <div class="jar-lid"></div>
+          <div class="jar-glass">
+            <div class="jar-stars">
+              <span class="origami-star">⭐</span>
+              <span class="origami-star">🌸</span>
+              <span class="origami-star">💫</span>
+              <span class="origami-star">✨</span>
+              <span class="origami-star">🌟</span>
+              <span class="origami-star">💖</span>
+              <span class="origami-star">🌼</span>
+              <span class="origami-star">🍀</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs text-pink-800 font-semibold mt-6">✨ Tap the jar to draw an affirmation!</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: GRAND FINALE SURPRISE BUTTON -->
+    <section class="text-center mb-16">
+      <div class="glass-card max-w-2xl mx-auto p-8 md:p-12 rounded-3xl border border-pink-300 relative overflow-hidden shadow-lg">
+        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-pink-300/30 rounded-full blur-2xl"></div>
+        <div class="absolute -left-10 -top-10 w-40 h-40 bg-amber-300/30 rounded-full blur-2xl"></div>
+
+        <h2 class="font-dancing text-4xl md:text-6xl heading-gradient font-bold mb-3">
+          The Grand Birthday Bloom 🎆
+        </h2>
+        <p class="text-[#5a3058] text-sm md:text-base max-w-lg mx-auto mb-6 font-medium">
+          Release sky lanterns into the starlit night and illuminate the sky with custom interactive fireworks for Janvii.
+        </p>
+
+        <button id="grand-surprise-btn" class="btn-blossom text-lg md:text-xl py-3.5 px-8 inline-flex items-center gap-2 pulse-glow">
+          <span>🎆 Launch Grand Celebration & Fireworks 🌸</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-xs md:text-sm text-pink-800/70 py-8 border-t border-pink-200">
+      <p class="font-semibold">Crafted with ❤️ and cherished friendship by Kaushal for Janvii's Birthday 🌸</p>
+      <p class="text-xs text-pink-700/60 mt-1">May this year be your most wonderful chapter yet.</p>
+    </footer>
+
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 4. MODALS & POPUPS -->
+  <!-- ========================================== -->
+
+  <!-- LIGHTBOX MODAL FOR POLAROIDS -->
+  <div id="gallery-lightbox-modal" class="modal-overlay">
+    <div class="modal-content glass-panel max-w-3xl w-full p-6 md:p-8 rounded-3xl relative text-center border border-pink-300 shadow-2xl">
+      <button id="close-lightbox-btn" class="absolute top-4 right-4 text-pink-700 hover:text-pink-900 text-3xl font-bold w-10 h-10 flex items-center justify-center rounded-full bg-pink-100 hover:bg-pink-200 transition-colors">&times;</button>
+
+      <div class="max-h-[60vh] flex items-center justify-center overflow-hidden rounded-2xl mb-4 bg-pink-50 border border-pink-200">
+        <img id="lightbox-img" src="" alt="Enlarged Memory" class="max-h-[60vh] w-auto object-contain rounded-xl">
+      </div>
+
+      <h3 id="lightbox-caption" class="font-dancing text-3xl md:text-4xl text-pink-800 font-bold mb-2"></h3>
+      <p id="lightbox-desc" class="text-[#5a3058] text-sm md:text-base max-w-xl mx-auto font-medium"></p>
+
+      <div class="flex justify-between items-center mt-6 pt-4 border-t border-pink-200">
+        <button id="lightbox-prev" class="px-4 py-2 rounded-full glass-card hover:border-pink-500 text-sm font-semibold text-pink-800 flex items-center gap-1 shadow-sm">
+          &larr; Previous
+        </button>
+        <button id="lightbox-next" class="px-4 py-2 rounded-full glass-card hover:border-pink-500 text-sm font-semibold text-pink-800 flex items-center gap-1 shadow-sm">
+          Next &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO REEL MODAL -->
+  <div id="video-modal" class="modal-overlay">
+    <div class="modal-content glass-panel max-w-md w-full p-6 rounded-3xl relative text-center border border-pink-300 shadow-2xl">
+      <button id="close-video-btn" class="absolute top-4 right-4 text-pink-700 hover:text-pink-900 text-3xl font-bold w-10 h-10 flex items-center justify-center rounded-full bg-pink-100 hover:bg-pink-200 transition-colors">&times;</button>
+      <h3 id="video-title" class="font-dancing text-3xl text-pink-800 font-bold mb-4">Memory Reel 📽️</h3>
+      <div class="rounded-2xl overflow-hidden shadow-2xl bg-black border border-pink-200">
+        <video id="reel-video-player" src="" controls playsinline class="w-full max-h-[65vh] rounded-2xl"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARCHMENT LETTER MODAL -->
+  <div id="letter-modal" class="modal-overlay">
+    <div class="modal-content max-w-xl w-full relative">
+      <div class="parchment-letter font-handwriting text-xl md:text-2xl">
+        <button id="close-letter-btn" class="absolute top-3 right-4 text-pink-800 hover:text-pink-950 text-3xl font-bold">&times;</button>
+
+        <h3 class="font-dancing text-3xl md:text-4xl text-pink-700 font-bold mb-4 text-center">Dear Janvii,</h3>
+
+        <div class="space-y-4">
+          <p>
+            On your birthday today, I wanted to take a moment to celebrate you — not just another year, but the wonderfully kind, thoughtful, and vibrant person you are.
+          </p>
+          <p>
+            You have a rare ability to bring light into rooms and comfort to those around you without even trying. Your laughter is genuine warmth, and your presence makes ordinary days memorable.
+          </p>
+          <p>
+            As your friend, I am genuinely grateful for your presence in my life. I hope this coming year is exceptionally kind to your heart, gentle with your dreams, and overflowing with peace, great health, and towering success.
+          </p>
+          <p class="text-center font-bold text-pink-700 my-4">
+            And remember — no matter how chaotic the world gets or where life takes us, you will always have a loyal friend standing by you. 🌸
+          </p>
+          <div class="text-right pt-2">
+            <p>Happy Birthday!</p>
+            <p class="font-bold text-pink-800">Warmest wishes, Kaushal</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SMILE CAPSULE MODAL -->
+  <div id="smile-modal" class="modal-overlay">
+    <div class="modal-content glass-panel max-w-md w-full p-8 rounded-3xl relative text-center border border-pink-300 shadow-2xl">
+      <button id="close-smile-btn" class="absolute top-4 right-4 text-pink-700 hover:text-pink-900 text-3xl font-bold w-10 h-10 flex items-center justify-center rounded-full bg-pink-100 hover:bg-pink-200 transition-colors">&times;</button>
+      <div id="smile-emoji" class="text-5xl mb-4 animate-bounce">⭐</div>
+      <p id="smile-text" class="font-dancing text-2xl md:text-3xl text-pink-800 font-bold mb-4 leading-relaxed"></p>
+      <p id="smile-counter" class="text-xs text-pink-600 mb-6 font-mono font-medium"></p>
+      <button id="draw-another-btn" class="btn-blossom text-sm py-2 px-6">
+        Draw Another Smile ✨
+      </button>
+    </div>
+  </div>
+
+  <!-- GRAND FINALE CELEBRATION MODAL -->
+  <div id="grand-finale-modal" class="modal-overlay">
+    <div class="modal-content glass-panel max-w-lg w-full p-8 md:p-10 rounded-3xl relative text-center border border-pink-300 shadow-2xl">
+      <button id="close-finale-btn" class="absolute top-4 right-4 text-pink-700 hover:text-pink-900 text-3xl font-bold w-10 h-10 flex items-center justify-center rounded-full bg-pink-100 hover:bg-pink-200 transition-colors">&times;</button>
+
+      <div class="inline-block px-3 py-1 rounded-full bg-pink-100 border border-pink-300 text-pink-700 text-xs font-semibold mb-3">
+        🎆 Sky Lanterns & Fireworks Active
+      </div>
+
+      <h2 class="font-dancing text-4xl md:text-5xl heading-gradient font-bold mb-4">
+        To Another Year of Blossoming, Janvii! 🌸
+      </h2>
+
+      <!-- Dancing Teddy Bear Cameo -->
+      <div class="w-48 h-48 mx-auto mb-4 rounded-2xl overflow-hidden shadow-2xl border-2 border-pink-300">
+        <video src="./assets/videos/Cute_Teddy_Bear_Birthday_Video.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video>
+      </div>
+
+      <p class="text-[#5a3058] text-sm md:text-base leading-relaxed mb-6 font-medium">
+        The sky is illuminated for you tonight! You can tap anywhere on the screen behind this card to launch custom colorful fireworks! 🎇
+      </p>
+
+      <button onclick="document.getElementById('grand-finale-modal').classList.remove('active');" class="btn-gold py-2.5 px-6 rounded-full text-sm">
+        ✨ Tap Here to Play with the Sky & Fireworks ✨
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 5. FLOATING PERSISTENT MUSIC & CONTROLS DOCK -->
+  <!-- ========================================== -->
+  <aside class="audio-dock">
+    <!-- Equalizer Visualizer -->
+    <div id="eq-visualizer" class="eq-container">
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+    </div>
+
+    <!-- Play/Pause Button -->
+    <button id="play-pause-btn" class="w-9 h-9 rounded-full bg-pink-500 hover:bg-pink-600 flex items-center justify-center transition-transform hover:scale-110 shadow-sm text-white" title="Play / Pause Music">
+      <!-- Play Icon -->
+      <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <!-- Pause Icon -->
+      <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white hidden" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+    </button>
+
+    <!-- Volume Slider -->
+    <input id="volume-slider" type="range" min="0" max="1" step="0.05" value="0.65" class="w-16 h-1 bg-pink-200 rounded-lg appearance-none cursor-pointer hidden sm:block accent-pink-500" title="Adjust Volume">
+  </aside>
+
+  <!-- Script File -->
+  <script src="script.js"></script>
+</body>
+</html>
