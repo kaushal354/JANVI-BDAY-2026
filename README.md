@@ -75,7 +75,7 @@ The first screen pairs a warm ivory card with a muted rose-and-blush gateway:
 - Stays anchored at the bottom-right of the viewport.
 - 4-bar animated equalizer visualizer synced to play/pause state.
 - **Single Track**: *Jashn E Bahaaraa — Instrumental Flute* (`assets/audio/jashn_e_bahaaraa_flute.mp3`), starting at 22 seconds.
-- Music stays paused until the play button is clicked.
+- Starts when entering the birthday page; pauses while a video reel is open and resumes at its previous position when the reel closes, if it was playing before.
 - Native volume slider with live gain adjustment.
 
 ---
@@ -93,7 +93,7 @@ c:\Users\kaush\Downloads\New folder (2)\
     ├── audio/
     │   └── jashn_e_bahaaraa_flute.mp3 # Click-to-play background track
     ├── images/
-    │   ├── photo_1.jpg, photo_2.png, photo_3.jpg to photo_9.jpg
+    │   ├── photo_1.jpg to photo_3.jpg, photo_4.png, photo_5.jpg to photo_9.jpg
     │   ├── birthday_collage.png
     │   ├── janvii1.jpeg, janvii2.png, janvii3.png
     │   ├── 20.jpg, 22.jpg, 23.jpg, 29.jpg, 67.jpg, bd1.jpg

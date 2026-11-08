@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'Life is made of little memories, and the ones with your laughter are the sweetest.'
     },
     {
-      src: './assets/images/photo_4.jpg',
+      src: './assets/images/photo_4.png',
       caption: 'Quiet strength & bright spirit 🌿',
       desc: 'Always staying true to yourself, graceful and kind through every season.'
     },
@@ -548,9 +548,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const openVideoBtn2 = document.getElementById('open-video-btn-2');
   const closeVideoBtn = document.getElementById('close-video-btn');
   const videoTitle = document.getElementById('video-title');
+  let musicWasPlayingBeforeVideo = false;
 
   function openVideoModal(videoSrc, title) {
     if (!videoPlayer) return;
+    musicWasPlayingBeforeVideo = !bgAudio.paused;
     videoPlayer.src = videoSrc;
     if (videoTitle) videoTitle.textContent = title;
     videoModal.classList.add('active');
@@ -564,6 +566,10 @@ document.addEventListener('DOMContentLoaded', () => {
     videoPlayer.pause();
     videoPlayer.src = '';
     videoModal.classList.remove('active');
+    if (musicWasPlayingBeforeVideo) {
+      musicWasPlayingBeforeVideo = false;
+      playMusic();
+    }
   }
 
   if (openVideoBtn1) {
