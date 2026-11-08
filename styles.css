@@ -101,6 +101,34 @@ body {
   display: none;
 }
 
+.fireworks-close-btn {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  z-index: 60;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 9999px;
+  background: rgba(255, 250, 246, 0.94);
+  color: #81445b;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+  font: 600 14px 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.fireworks-close-btn.is-visible {
+  display: flex;
+}
+
+.fireworks-close-btn span {
+  font-size: 24px;
+  line-height: 1;
+}
+
 /* Buttons */
 .btn-blossom {
   background: linear-gradient(135deg, #a94f68 0%, #bd7182 55%, #cc8b96 100%);

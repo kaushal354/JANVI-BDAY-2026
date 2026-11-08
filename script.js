@@ -682,6 +682,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const fwCtx = fireworksCanvas ? fireworksCanvas.getContext('2d') : null;
   const grandFinaleModal = document.getElementById('grand-finale-modal');
   const closeFinaleBtn = document.getElementById('close-finale-btn');
+  const closeFireworksBtn = document.getElementById('close-fireworks-btn');
   let fireworksActive = false;
   let fireworksParticles = [];
   let fireworksStars = [];
@@ -813,28 +814,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   let lanternInterval = null;
+  let finaleTimeouts = [];
+
+  function scheduleFinale(callback, delay) {
+    finaleTimeouts.push(setTimeout(callback, delay));
+  }
+
+  function clearFinaleTimeouts() {
+    finaleTimeouts.forEach((timeout) => clearTimeout(timeout));
+    finaleTimeouts = [];
+  }
 
   function launchGrandSurprise() {
     initAudioContext();
     playSparkleSound();
     fireworksActive = true;
     if (fireworksCanvas) fireworksCanvas.style.display = 'block';
+    if (closeFireworksBtn) closeFireworksBtn.classList.add('is-visible');
     animateFireworks();
 
     // Launch lanterns
     for (let i = 0; i < 6; i++) {
-      setTimeout(spawnSkyLantern, i * 700);
+      scheduleFinale(spawnSkyLantern, i * 700);
     }
     if (lanternInterval) clearInterval(lanternInterval);
     lanternInterval = setInterval(spawnSkyLantern, 2200);
 
     // Initial big fireworks
-    setTimeout(() => createFirework(window.innerWidth * 0.5, window.innerHeight * 0.35), 200);
-    setTimeout(() => createFirework(window.innerWidth * 0.3, window.innerHeight * 0.25), 600);
-    setTimeout(() => createFirework(window.innerWidth * 0.7, window.innerHeight * 0.28), 1000);
+    scheduleFinale(() => createFirework(window.innerWidth * 0.5, window.innerHeight * 0.35), 200);
+    scheduleFinale(() => createFirework(window.innerWidth * 0.3, window.innerHeight * 0.25), 600);
+    scheduleFinale(() => createFirework(window.innerWidth * 0.7, window.innerHeight * 0.28), 1000);
 
     // Open Grand Finale Modal
-    setTimeout(() => {
+    scheduleFinale(() => {
       if (grandFinaleModal) grandFinaleModal.classList.add('active');
       launchConfettiExplosion();
     }, 1200);
@@ -842,6 +854,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function stopGrandSurprise() {
     fireworksActive = false;
+    clearFinaleTimeouts();
     if (fireworksCanvas) {
       fireworksCanvas.style.display = 'none';
       if (fwCtx) fwCtx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
@@ -851,10 +864,13 @@ document.addEventListener('DOMContentLoaded', () => {
       lanternInterval = null;
     }
     if (grandFinaleModal) grandFinaleModal.classList.remove('active');
+    if (closeFireworksBtn) closeFireworksBtn.classList.remove('is-visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   if (grandSurpriseBtn) grandSurpriseBtn.addEventListener('click', launchGrandSurprise);
   if (closeFinaleBtn) closeFinaleBtn.addEventListener('click', stopGrandSurprise);
+  if (closeFireworksBtn) closeFireworksBtn.addEventListener('click', stopGrandSurprise);
 
   // --- 12. SMOOTH SECTION NAVIGATION ---
   const navLinks = document.querySelectorAll('a[href^="#"]');
